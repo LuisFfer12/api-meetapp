@@ -1,8 +1,8 @@
 import * as Yup from 'yup';
 import { isBefore, parseISO } from 'date-fns';
-import Meetapps from '../models/Meetapps';
+import Meetups from '../models/Meetups';
 
-class MeetappControler {
+class MeetupControler {
   async store(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string().required(),
@@ -22,7 +22,7 @@ class MeetappControler {
 
     const user_id = req.userId;
 
-    const meetup = await Meetapps.create({
+    const meetup = await Meetups.create({
       ...req.body,
       user_id,
     });
@@ -31,7 +31,7 @@ class MeetappControler {
   }
 
   async update(req, res) {
-    const meetapp = await Meetapps.findByPk(req.params.meetappId);
+    const meetapp = await Meetups.findByPk(req.params.meetappId);
 
     if (!meetapp || meetapp.past) {
       return res.json({ error: 'meetapp does not exist or happened' });
@@ -51,31 +51,31 @@ class MeetappControler {
   }
 
   async index(req, res) {
-    const meetapps = await Meetapps.findAll({
+    const meetups = await Meetups.findAll({
       where: {
         user_id: req.userId,
       },
-      attributes: ['id', 'description', 'title', 'location', 'date'],
+      attributes: ['id', 'past', 'description', 'title', 'location', 'date'],
     });
-    return res.json(meetapps);
+    return res.json(meetups);
   }
 
   async delete(req, res) {
-    const meetapp = await Meetapps.findByPk(req.params.meetappId);
+    const meetup = await Meetups.findByPk(req.params.meetappId);
 
-    if (!meetapp || meetapp.past) {
-      return res.json({ error: 'meetapp does not exist or happened' });
+    if (!meetup || meetup.past) {
+      return res.json({ error: 'meetup does not exist or happened' });
     }
 
-    if (meetapp.user_id !== req.userId) {
+    if (meetup.user_id !== req.userId) {
       return res.json({
         error: 'you dont have permission to edit this meetapp',
       });
     }
 
-    await meetapp.destroy();
-    return res.json({ ok: 'true' });
+    await meetup.destroy();
+    return res.send();
   }
 }
 
-export default new MeetappControler();
+export default new MeetupControler();

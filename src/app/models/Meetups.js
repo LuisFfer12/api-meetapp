@@ -1,7 +1,7 @@
 import Sequelize, { Model } from 'sequelize';
 import { isBefore } from 'date-fns';
 
-class Meetapps extends Model {
+class Meetups extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -25,9 +25,10 @@ class Meetapps extends Model {
   }
 
   static associate(models) {
+    this.hasMany(models.Subscriptions, { foreignKey: 'meetup_id' });
     this.belongsTo(models.User, { foreignKey: 'user_id' });
     this.belongsTo(models.File, { foreignKey: 'file_id' });
   }
 }
 
-export default Meetapps;
+export default Meetups;
