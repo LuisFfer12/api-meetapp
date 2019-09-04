@@ -1,5 +1,7 @@
 # api-meetapp
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f20911b08aac415ab15dbdd6e1178ce1)](https://app.codacy.com/app/LuisFfer12/api-meetapp?utm_source=github.com&utm_medium=referral&utm_content=LuisFfer12/api-meetapp&utm_campaign=Badge_Grade_Dashboard)
+
 ### Introdução
 
 Esta aplicaçao faz parte do desafio 02 e 03 do bootcamp da RocketSeat. o proposito desse projeto é contruir uma aplicação para gerenciamento de meetups.
